@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoØst - PG triggers</title>
+    <script src="main.js" defer type="module"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-auto-animate>
+          <h2>Foreign keys, functions og triggers</h2>
+          <aside class="notes">
+            HUSK at fortælle om min hemmelige mission!
+          </aside>
+        </section>
+        <section data-auto-animate>
+          <h2>Foreign keys, functions og triggers</h2>
+          <p>Hvordan mit liv blev en anelse nemmere ved brug af SQL</p>
+        </section>
+        <section>
+          <section>
+            <h1>Foreign keys?</h1>
+          </section>
+          <section>
+            <h3>Nøglekolonne i en tabel, som refererer til en anden tabels ID kolonne</h3>
+          </section>
+          <section>
+            <img src="geooest_fk.png" alt="">
+            <aside class="notes">
+              Busrute eksempel<br>
+              Man kan ikke indlæse data i tidsplan uden, at der er en gyldig rute_id eller stop_id
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Functions?</h1>
+          </section>
+          <section>
+            <h3>Et stykke kode, som udfører en bestemt opgave eller handling.</h3>
+            <aside class="notes">
+              F.eks. flytte rækker mellem tabeller<br>
+              Indsætte timestamps
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Triggers?</h1>
+          </section>
+          <section>
+            <h3>"Databasedims" som lytter efter events og eksekverer en funktion</h3>
+          </section>
+          <section>
+            <h1>Events</h1>
+            <ul id="list">
+              <li>INSERT</li>
+              <li>UPDATE</li>
+              <li>DELETE</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Kan bruges til alt muligt!</h3>
+            <ul id="list">
+              <li>Oprettelse af historik</li>
+              <li>Sørge for datakvalitet</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section data-auto-animate>
+            <h1>DVFI</h1>
+            <aside class="notes">
+              <strong>D</strong>ansk <strong>v</strong>andløbs<strong>f</strong>auna<strong>i</strong>ndex
+            </aside>
+          </section>
+          <section data-auto-animate>
+            <h1>DVFI</h1>
+            <ol>
+              <li>TM modtager data</li>
+              <li>TM sender videre til GIS</li>
+              <li>GIS opdaterer tabel</li>
+            </ol>
+            <aside class="notes">
+              Den perfekte verden
+            </aside>
+          </section>
+          <section data-auto-animate>
+            <h1>DVFI</h1>
+            <ol>
+              <li>TM modtager data</li>
+              <li>TM prøver at finde ud af, hvordan man udfører opgaven</li>
+              <li>TM sender videre til GIS</li>
+              <li>GIS bliver udfordret på dårlig datastruktur og -kvalitet</li>
+              <li>GIS opdaterer tabel</li>
+              <li class="fragment">TM brokker sig over datakvalitet / manglende data</li>
+            </ol>
+          </section>
+          <section>
+            <img style="width: 100%;" data-src="https://media.giphy.com/media/7VHV66bRjGRSo/giphy.gif" alt="">
+          </section>
+          <section data-auto-animate>
+            <h1>DVFI</h1>
+            <p>Gammel datastruktur</p>
+            <img src="dvfi_original.png" alt="">
+            <aside class="notes">
+              Gik fra uoverskuelig datastruktur, som var svær at opdatere.
+            </aside>
+          </section>
+          <section data-auto-animate>
+            <h1>DVFI</h1>
+            <p>Ny datastruktur</p>
+            <img style="margin: 0;" src="dvfi_diagram.png" alt="">
+            <aside class="notes">
+              Til 3 tabeller og 1 view<br>
+              Som er nemme at opdatere
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section data-auto-animate>
+            <h1>Historik</h1>
+          </section>
+          <section data-auto-animate>
+            <h1>Historik</h1>
+            <p>Bevar alle ændringer i data, så man kan spole tilbage i tiden!</p>
+          </section>
+          <section>
+            <h1>Triggers to the rescue!</h1>
+          </section>
+          <section>
+            <h1>Historik</h1>
+            <ol>
+              <li>INSERT</li>
+              <li>UPDATE</li>
+              <li>DELETE</li>
+            </ol>
+          </section>
+          <section>
+            <h1>INSERT</h1>
+            <ol>
+              <li>Tilføj en timestamp i <i>valid_from</i></li>
+            </ol>
+            <p></p>
+          </section>
+          <section>
+            <h1>UPDATE</h1>
+            <ol>
+              <li>Kopier til historik tabel</li>
+              <li>Indsæt timestamp i <i>valid_to</i></li>
+              <li>Opdater valid_from i original tabel</li>
+            </ol>
+          </section>
+          <section>
+            <h1>DELETE</h1>
+            <ol>
+              <li>Kopier til historik tabel</li>
+              <li>Indsæt time stamp i <i>valid_to</i></li>
+            </ol>
+          </section>
+          <section>
+            <h1>DEMO</h1>
+          </section>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
